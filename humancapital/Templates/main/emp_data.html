@@ -1,0 +1,71 @@
+{% extends "../apptemp.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<!-- ======= Header ======= -->
+{% block nav %}{% include './maintemp.html' %}{% endblock nav %}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>{{ header }}</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">{{ header }}</li>
+          </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+          <div class="col-lg-12">
+  
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">All Employees</h5>
+                
+  
+                <!-- Table with stripped rows -->
+                <table class="table datatable table-striped">
+                  <a class="right-align" href="{% url 'Add New Employee' %}" target="_blank"><button class="btn btn-sm btn-success">New Employee</button></a>
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Position</th>
+                      <th scope="col"></th>
+                      
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for d in data %}
+
+                    <tr>
+                        <th scope="row">{{ d.fields.qid }}</th>                
+                        <td>{{ d.fields.first_name }} {{ d.fields.last_name }}</td>
+                        <td>{{ d.fields.designation }}</td>
+                        
+
+                        <td><a href="{% url 'Employee' serial=d.pk%}" ><button class="btn btn-sm btn-primary">View Employee</button></a></td>
+
+                        
+                    </tr>
+                    {% endfor %}
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+  
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </section>
+
+
+
+
+</main>
+{% endblock %}

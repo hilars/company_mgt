@@ -1,0 +1,121 @@
+{% extends "../apptemp.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<!-- ======= Header ======= -->
+{% block nav %}{% include './maintemp.html' %}{% endblock nav %}
+<main id="main" class="main">
+<div class="pagetitle">
+    <h1>Add New Employee</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active">Add New Employee</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+  <div class="row">
+    <div class="col-lg-12">
+
+        <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">New Employee</h5>
+
+            {% if img_obj %}
+              <h3>Succesfully uploaded : {{img_obj.title}}</h3>
+              <img src="{{ img_obj.image.url}}" alt="connect" style="max-height:300px">
+            {% endif %}
+
+            <!-- General Form Elements -->
+            <form action="{% url 'Add New Employee' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">{{empform.first_name.label_tag}}</label>
+                <div class="col-sm-10">
+                  {{ empform.first_name|attr:"autocomplete:off"|add_class:"form-control" }}
+                  <!--<input type="text" class="form-control"> -->
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">{{empform.last_name.label_tag}}</label>
+                <div class="col-sm-10">
+                  {{ empform.last_name|attr:"autocomplete:off"|add_class:"form-control" }}
+                  <!--<input type="text" class="form-control"> -->
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">{{empform.designation.label_tag}}</label>
+                <div class="col-sm-10">
+                  {{ empform.designation|attr:"autocomplete:off"|add_class:"form-control" }}
+                  <!--<input type="text" class="form-control"> -->
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">{{empform.image.label_tag}}</label>
+                <div class="col-sm-10">
+                  {{ empform.image|attr:"autocomplete:off"|add_class:"form-control" }}
+                  <!--<input type="text" class="form-control"> -->
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">{{empform.nationality.label_tag}}</label>
+                <div class="col-sm-10">
+                  {{ empform.nationality|attr:"autocomplete:off"|add_class:"form-control" }}
+                  <!--<input type="text" class="form-control"> -->
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">QID</label>
+                <div class="col-sm-10">
+                  {{ empform.qid|attr:"autocomplete:off"|add_class:"form-control" }}
+                  <!--<input type="text" class="form-control"> -->
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">Photo of QID </label>
+                <div class="col-sm-10">
+                  {{ empform.qid_img|attr:"autocomplete:off"|add_class:"form-control" }}
+                  <!--<input type="text" class="form-control"> -->
+                </div>
+              </div>
+
+              
+
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">{{empform.date_of_birth.label_tag}}</label>
+                <div class="col-sm-10">
+                  {{ empform.date_of_birth|attr:"autocomplete:off"|add_class:"form-control" }}
+                  <!--<input type="text" class="form-control"> -->
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-2 col-form-label">{{empform.company.label_tag}}</label>
+                <div class="col-sm-10">
+                  {{ empform.company|attr:"autocomplete:off"|add_class:"form-control" }}
+                  <!--<input type="text" class="form-control"> -->
+                </div>
+              </div>
+              
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-primary">Add Employee</button>
+                </div>
+              </div>
+            </form><!-- End General Form Elements -->
+
+        </div>
+        </div>
+
+        </div>
+    </div>
+ 
+</main>
+{% endblock %}
