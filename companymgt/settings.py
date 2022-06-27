@@ -51,13 +51,21 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+SETTINGS_PATH = os.path.realpath(os.path.dirname(__file__))
 ROOT_URLCONF = 'companymgt.urls'
+
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(SETTINGS_PATH, 'templates'),
+)
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(SETTINGS_PATH, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
