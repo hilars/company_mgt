@@ -1,0 +1,1 @@
+web: gunicorn companymgt.wsgi --log-file -
