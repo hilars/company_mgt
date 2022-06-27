@@ -28,4 +28,4 @@ class EmployeeForm(forms.ModelForm):
 class ContractsForm(forms.Form):
     contracttype = forms.ModelChoiceField(
             widget= forms.Select(attrs={'placeholder':"Meter make",'id':'meter','class':'form-control form-control-sm',}), queryset=ContractType.objects.all())
-    contract_start = forms.DateField()
+    contract_start = forms.DateField(widget=widgets.DateInput())

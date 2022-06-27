@@ -114,21 +114,30 @@ def get_employee_details(request, serial):
 
     data = serializers.serialize("json", Employee.objects.filter(emp_no=serial))
     contract_data = serializers.serialize("json", Contract.objects.filter(employee__pk=serial))
-    cdata = Contract.objects.filter(employee__pk=serial)
+    cdata = Contract.objects.filter(employee__pk=serial).order_by('-contract_start')
     data=Employee.objects.filter(emp_no=serial)#json.loads(data)
+    if (cdata!= None):
+        for d in cdata:
+            if(d.months_left_expire>=3):
+                renew = False
+                break
+            else:
+                renew = True
+
     #print(Contract.objects.filter(employee__pk=serial)[0].months_left_expire)
     print(Employee.objects.filter(emp_no=serial))
-    return render(request, template_name, {'data':data[0],'cdata':cdata,'title':header,'header':header})
+
+    return render(request, template_name, {'data':data[0],'renew':renew,'cdata':cdata,'title':header,'header':header})
 
 
-class ContractsFormView(View):
+'''class ContractsFormView(View):
 
     template_name = 'main/empform.html'
     
     def get(self, request):
         # <view logic>
         form = ContractsForm()
-        return render(request, self.template_name, context={'contractform':form} )##HttpResponse('result')'''
+        return render(request, self.template_name, context={'contractform':form} )##HttpResponse('result')
     
     def post(self, request):
         form = ContractsForm(data=request.POST, files=request.FILES)
@@ -149,14 +158,7 @@ class ContractsFormView(View):
             #post.save()
             return redirect('Employees')
         else:
-            return HttpResponse(f'Error saving form--{form.errors}')
-
-
-
-
-
-
-
+            return HttpResponse(f'Error saving form--{form.errors}')'''
 
 
 
@@ -185,7 +187,7 @@ def post_contract(request, serial):
 
                 # Get the current instance object to display in the template
                 #img_obj = form.instance
-                
+                print(employee)
 
                 #post.save()
                 return redirect('Employees')
@@ -193,5 +195,7 @@ def post_contract(request, serial):
                 return HttpResponse(f'Error saving form--{form.errors}')
         else:
             form = ContractsForm()
-    return render(request, 'main/contractform.html', {'form': form, 'serial':serial,'header':header})
+            employee = Employee.objects.get(pk=serial)
+            print(employee.first_name)
+    return render(request, 'main/contractform.html', {'form': form, 'emp':employee, 'serial':serial,'header':header})
 

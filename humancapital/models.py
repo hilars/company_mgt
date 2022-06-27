@@ -111,7 +111,7 @@ class ContractType(models.Model):
 class Contract(models.Model):
     contract_type = models.ForeignKey(ContractType,  on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    contract_start = models.DateField()
+    contract_start = models.DateField(auto_now=False, auto_now_add=False)
     
 
     @property
@@ -142,4 +142,7 @@ class Contract(models.Model):
 
     def __str__(self):
         return f'{self.employee.first_name} {self.employee.last_name} {self.contract_type.name} {self.contract_start}-{self.contract_end}'
+    
+    class meta:
+        ordering = ['-contract_start']
     
