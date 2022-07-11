@@ -116,13 +116,17 @@ def get_employee_details(request, serial):
     contract_data = serializers.serialize("json", Contract.objects.filter(employee__pk=serial))
     cdata = Contract.objects.filter(employee__pk=serial).order_by('-contract_start')
     data=Employee.objects.filter(emp_no=serial)#json.loads(data)
-    if (cdata!= None):
+    print (f'cdata: {len(cdata)}')
+    
+    if (len(cdata)!= 0):
         for d in cdata:
             if(d.months_left_expire>=3):
                 renew = False
                 break
             else:
                 renew = True
+    else:
+        renew = True
 
     #print(Contract.objects.filter(employee__pk=serial)[0].months_left_expire)
     print(Employee.objects.filter(emp_no=serial))
